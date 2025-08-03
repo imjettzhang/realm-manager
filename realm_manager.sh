@@ -146,6 +146,8 @@ install_realm() {
         return 1
     fi
 
+    # 启用 bbr
+    enable_bbr
     # 创建 realm 服务
     create_realm_service
     # 重启 realm 服务
