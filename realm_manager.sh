@@ -117,8 +117,8 @@ install_realm() {
     # 拼接下载链接
     local url="https://github.com/zhboner/realm/releases/download/${version}/realm-${arch}.tar.gz"
 
-    echo "开始下载url: ${url}"
-    echo "安装 realm ${version} (${arch})"
+    print_info "开始下载url: ${url}"
+    print_info "安装 realm ${version} (${arch})"
     cd /tmp || return 1
 
     # 下载并解压
