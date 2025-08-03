@@ -149,6 +149,13 @@ install_realm() {
         echo "❌ realm 安装失败"
         return 1
     fi
+
+    # 创建 realm 服务
+    create_realm_service
+    # 重启 realm 服务
+    restart_realm
+    read -p "按回车返回主菜单..."
+    main_menu
 }
 
 
