@@ -49,7 +49,7 @@ function main_menu() {
     echo "3. 重启 realm"
     echo "4. 新增规则"
     echo "5. 删除规则"
-    echo "6. 查看日志"
+    echo "6. 查看状态"
     echo "0. 退出"
     read -p "请选择操作: " choice
     case $choice in
@@ -58,7 +58,7 @@ function main_menu() {
         3) restart_realm ;;
         4) add_realm_rules ;;
         5) delete_realm_rules ;;
-        6) view_realm_logs ;;
+        6) view_realm_status ;;
         0) exit 0 ;;
         *) echo "无效选择"; read -p "按回车继续..."; main_menu ;;
     esac
@@ -241,10 +241,10 @@ function restart_realm() {
     main_menu
 }
 
-# 查看 realm 实时日志
-function view_realm_logs() {
-    print_info "正在显示 realm 实时日志（按 Ctrl+C 退出）..."
-    sudo journalctl -u realm -f
+# 查看 realm 状态
+function view_realm_status() {
+    print_info "正在显示 realm 状态..."
+    systemctl status realm
     read -p "按回车返回主菜单..."
     main_menu
 }
