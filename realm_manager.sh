@@ -270,25 +270,35 @@ function view_realm_rules() {
     fi
 
     local idx=0
+    local count=0
     local listen="" remote="" protocol=""
     print_info "现有 realm 转发规则："
 
-    awk '
-    BEGIN { idx=0 }
-    /^\[\[endpoints\]\]/ { if (listen && remote) {
-        idx++; printf "%d: 监听: %s, 协议: %s, 目标: %s\n", idx, listen, (protocol?protocol:"TCP"), remote
+    awk -v IGNORE_LISTEN="0.0.0.0:65532" -v IGNORE_REMOTE="127.0.0.1:65532" -v IGNORE_PROTO="TCP" '
+    BEGIN { idx=0; count=0 }
+    /^\[\[endpoints\]\]/ {
+        if (listen && remote) {
+            # 跳过默认规则
+            if (!(listen == IGNORE_LISTEN && remote == IGNORE_REMOTE && (protocol == "" || protocol == IGNORE_PROTO))) {
+                count++; printf "%d: 监听: %s, 协议: %s, 目标: %s\n", count, listen, (protocol?protocol:"TCP"), remote
+            }
+        }
+        listen=""; remote=""; protocol=""
+        next
     }
-    listen=""; remote=""; protocol=""
-    next }
     /^listen[ \t]*=/ { gsub(/"/,"",$3); listen=$3 }
     /^remote[ \t]*=/ { gsub(/"/,"",$3); remote=$3 }
     /^protocol[ \t]*=/ { gsub(/"/,"",$3); protocol=toupper($3) }
-    END { if (listen && remote) {
-        idx++; printf "%d: 监听: %s, 协议: %s, 目标: %s\n", idx, listen, (protocol?protocol:"TCP"), remote
-    } }
+    END {
+        if (listen && remote) {
+            if (!(listen == IGNORE_LISTEN && remote == IGNORE_REMOTE && (protocol == "" || protocol == IGNORE_PROTO))) {
+                count++; printf "%d: 监听: %s, 协议: %s, 目标: %s\n", count, listen, (protocol?protocol:"TCP"), remote
+            }
+        }
+        printf "共 %d 条转发规则\n", count
+    }
     ' "$CONFIG_FILE"
 }
-
 
 # 删除realm转发规则
 function delete_realm_rules() {
