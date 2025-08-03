@@ -489,10 +489,8 @@ function select_realm_protocol() {
     echo "==========================="
     echo "1) tcp（默认）"
     echo "2) udp"
-    echo "3) ws"
-    echo "4) wss"
     while true; do
-        read -p "请选择协议 [1/2/3/4]: " proto
+        read -p "请选择协议 [1/2]: " proto
         if [[ -z "$proto" ]]; then
             proto="1"
         fi
@@ -503,14 +501,8 @@ function select_realm_protocol() {
             2)
                 REALM_PROTOCOL="udp"
                 ;;
-            3)
-                REALM_PROTOCOL="ws"
-                ;;
-            4)
-                REALM_PROTOCOL="wss"
-                ;;
             *)
-                echo "无效选择，请输入 1、2、3 或 4"
+                echo "无效选择，请输入 1 或 2"
                 continue
                 ;;
         esac
@@ -518,6 +510,7 @@ function select_realm_protocol() {
     done
     echo "已选择协议: $REALM_PROTOCOL"
 }
+
 
 
 function input_realm_target() {
