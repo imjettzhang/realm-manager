@@ -97,6 +97,14 @@ function check_sys() {
 
 # 安装realm（自动适配架构）
 install_realm() {
+    # 如果已安装 realm，则提示版本并返回
+    if command -v realm >/dev/null 2>&1; then
+        version=$(realm -v 2>/dev/null)
+        print_info "realm 已安装，版本：$version"
+        read -p "按回车返回主菜单..."
+        main_menu
+        return 0
+    fi
     # 自动识别架构
     local arch
     case "$(uname -m)" in
