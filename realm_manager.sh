@@ -46,23 +46,19 @@ function main_menu() {
     echo "==========================="
     echo -e "1. 安装 realm（$REALM_STATUS）"
     echo "2. 卸载 realm"
-    echo "3. 启动 realm"
-    echo "4. 停止 realm"
-    echo "5. 重启 realm"
-    echo "6. 新增规则"
-    echo "7. 删除规则"
-    echo "8. 查看日志"
+    echo "3. 重启 realm"
+    echo "4. 新增规则"
+    echo "5. 删除规则"
+    echo "6. 查看日志"
     echo "0. 退出"
     read -p "请选择操作: " choice
     case $choice in
         1) install_realm ;;
         2) uninstall_realm ;;
-        3) start_realm ;;
-        4) stop_realm ;;
-        5) restart_realm ;;
-        6) add_realm_rule_and_restart ;;
-        7) delete_realm_rules ;;
-        8) view_realm_logs ;;
+        3) restart_realm ;;
+        4) add_realm_rules ;;
+        5) delete_realm_rules ;;
+        6) view_realm_logs ;;
         0) exit 0 ;;
         *) echo "无效选择"; read -p "按回车继续..."; main_menu ;;
     esac
