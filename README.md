@@ -9,7 +9,7 @@ wget https://raw.githubusercontent.com/imjettzhang/realm-manager/main/setup.sh -
 
 ```
 
-安装完成后，可直接使用 `gm` 命令启动 realm 管理脚本。
+安装完成后，可直接使用 `rmgr` 命令启动 realm 管理脚本。
 
 
 ## 说明
