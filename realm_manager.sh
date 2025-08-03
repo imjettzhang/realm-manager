@@ -236,7 +236,7 @@ function restart_realm() {
         print_error "realm 服务重启失败，请检查服务状态"
     fi
     print_info "realm 服务状态："
-    systemctl status realm
+    systemctl status realm --no-pager
     read -p "按回车返回主菜单..."
     main_menu
 }
@@ -244,7 +244,7 @@ function restart_realm() {
 # 查看 realm 状态
 function view_realm_status() {
     print_info "正在显示 realm 状态..."
-    systemctl status realm
+    systemctl status realm --no-pager
     read -p "按回车返回主菜单..."
     main_menu
 }
