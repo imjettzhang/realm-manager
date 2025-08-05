@@ -674,7 +674,7 @@ function add_realm_rule_and_restart() {
         mkdir -p /etc/realm
         cat <<EOF > "$CONFIG_FILE"
 [log]
-level = "info"
+level = "error"
 output = "/var/log/realm.log"
 EOF
     fi
